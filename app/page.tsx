@@ -14,7 +14,7 @@ const slides = [
   {
     title: "Hi, I'm Daisy 👋🏽",
     content: [
-      "Technical Trainer",
+      "**Technical Trainer** — that's the main one",
       "Software Developer (apps + automations)",
       "Co-founder of a 2-month-old company ***(still alive, somehow)***",
     ],
@@ -24,44 +24,32 @@ const slides = [
     alt: "juggling fire",
   },
   {
-    title: "⚠️ Before we start…",
+    title: "☀️ A Day in My Life",
     content: [
-      "A career switch that makes no sense on paper",
-      "Honest confessions about Googling everything",
-      "At least one missing bracket joke",
+      "60% — explaining what a variable is (again, with love)",
+      "25% — actually writing code (for real clients)",
+      "10% — building something for Clairsens during lunch",
+      "5% — wondering why I didn't stay in nutrition",
     ],
-    quote: "*You've been warned.*",
-    gifId: "IeiMQviCogzg24Vzzx",
-    alt: "TV static glitch",
+    quote: '"Basically: teach, build, repeat. With snacks."',
+    gifId: "3oKIPnbKgN3bXeVpvy",
+    alt: "typing furiously at a computer",
   },
   {
-    title: "Plot Twist 🔄",
+    title: "🎓 What I Actually Teach",
     content: [
-      "I did NOT start in tech.",
-      "I studied **Nutrition** at JKUAT.",
-      "Worked in hospitals as a Clinical Nutritionist.",
-      "Told people what to eat.",
-    ],
-    quote:
-      '"Then one day I thought… what if I told computers what to do instead?"',
-    gifId: "axnZXRpZWSUwqpHdeT",
-    alt: "confused math lady",
-  },
-  {
-    title: "🐛 Caught the tech bug (202o)",
-    content: [
-      "HTML, CSS, JS – it was free",
-      "Python, data, AI – the usual suspects",
-      "ALX software engineering **(survived it ✔️)**",
-      "Became a Software Engineer",
+      "AI (the thing all our meetings are about)",
+      "Data analysis (because data is everything now)",
+      "Programming languages — Python, Java, whatever the client needs",
+      "QA frameworks — Selenium, Playwright, RestAssured… breaking things, professionally",
     ],
     quote:
-      '"No dramatic \'aha\' moment. Just curiosity… and a terrifying amount of YouTube at 2am."',
-    gifId: "rw0v2vXj6QIFBjB7as",
-    alt: "person falling down stairs",
+      '"I explain things that confused ME… to people who are currently confused. It\'s like therapy, but cheaper."',
+    gifId: "Y1L0dHsQrUpkv8Org7",
+    alt: "Spider-Man pointing",
   },
   {
-    title: "💻 What I built vs what I broke",
+    title: "💻 What I Build (vs Break)",
     content: [
       "**Built:** React apps, APIs, Automations",
       "**Also built:** Anxiety, a deep relationship with AI",
@@ -70,19 +58,6 @@ const slides = [
       '"I spent 70% of my time debugging… 20% Googling… and 10% pretending I knew what I was doing."',
     gifId: "nrXif9YExO9EI",
     alt: "SpongeBob on fire",
-  },
-  {
-    title: "Plot Twist… Again 🎢",
-    content: [
-      "Now I'm a **Technical Trainer**",
-      "Teach software, data, QA",
-      "Create curriculum",
-      "Help people NOT cry when their code breaks",
-    ],
-    quote:
-      '"So now I explain things that confused ME… to people who are currently confused. It\'s like therapy, but cheaper."',
-    gifId: "Y1L0dHsQrUpkv8Org7",
-    alt: "Spider-Man pointing",
   },
   {
     title: "🔓 Side Quest Unlocked",
@@ -96,16 +71,6 @@ const slides = [
       '"Basically we make computers do the boring stuff so humans don\'t have to."',
     gifId: "sUUPe6OQwRj56MhPXn",
     alt: "Mario power up",
-  },
-  {
-    title: "🧩 Why This Works (somehow)",
-    content: [
-      "**From Nutrition:** Explain complex things simply, Deal with difficult clients",
-      "**From Tech:** Build things that (sometimes) work, Pretend to be confident",
-    ],
-    quote: '"So now I\'m basically a tech translator for humans."',
-    gifId: "a5viI92PAF89q",
-    alt: "cat wearing glasses reading",
   },
   {
     title: "🚀 Where I'm Headed",
@@ -201,6 +166,7 @@ export default function Home() {
                 key={slide.gifId}
                 src={gifCandidates[0]}
                 alt={slide.alt}
+                referrerPolicy="no-referrer"
                 className="max-w-full h-auto rounded-lg max-h-80 object-contain"
                 data-src-index="0"
                 onError={(e) => {
