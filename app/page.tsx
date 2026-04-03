@@ -4,6 +4,12 @@ import { useState, useEffect, useRef } from "react";
 import { useKey } from "react-use";
 import confetti from "canvas-confetti";
 
+const getGifCandidates = (gifId: string) => [
+  `https://media4.giphy.com/media/${gifId}/giphy.gif`,
+  `https://media.giphy.com/media/${gifId}/giphy.gif`,
+  `https://i.giphy.com/media/${gifId}/giphy.gif`,
+];
+
 const slides = [
   {
     title: "Hi, I'm Daisy 👋🏽",
@@ -14,7 +20,7 @@ const slides = [
     ],
     quote:
       '"I teach tech, fight bugs for a living, and recently started a business… because I clearly didn\'t have enough stress"',
-    gif: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExenJnNGxleWh1MjRkcHhobTdiMGxkeHEwN2xueGVkOHQyZzJzaW1lOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKJ7stEm0x8LYOc/giphy.gif",
+    gifId: "3o7TKJ7stEm0x8LYOc",
     alt: "juggling fire",
   },
   {
@@ -25,7 +31,7 @@ const slides = [
       "At least one missing bracket joke",
     ],
     quote: "*You've been warned.*",
-    gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWM4NjJveWU1dnAyczZtbXBkY2ZoODV1N3hsaXFnNHlmN2Q1ZDhsbCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/IeiMQviCogzg24Vzzx/giphy.gif",
+    gifId: "IeiMQviCogzg24Vzzx",
     alt: "TV static glitch",
   },
   {
@@ -38,7 +44,7 @@ const slides = [
     ],
     quote:
       '"Then one day I thought… what if I told computers what to do instead?"',
-    gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdzcyb2phNnBzZWtzYTJpejFmdnd6ZHFyenV6YmkwMml3aDFjdjZjYSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/axnZXRpZWSUwqpHdeT/giphy.gif",
+    gifId: "axnZXRpZWSUwqpHdeT",
     alt: "confused math lady",
   },
   {
@@ -51,7 +57,7 @@ const slides = [
     ],
     quote:
       '"No dramatic \'aha\' moment. Just curiosity… and a terrifying amount of YouTube at 2am."',
-    gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdzcyeGVjam5obzFuYWQ0M2ExbDZwYWN3MXNoNnU0YXF2eGZ4NHI4ZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/rw0v2vXj6QIFBjB7as/giphy.gif",
+    gifId: "rw0v2vXj6QIFBjB7as",
     alt: "person falling down stairs",
   },
   {
@@ -62,7 +68,7 @@ const slides = [
     ],
     quote:
       '"I spent 70% of my time debugging… 20% Googling… and 10% pretending I knew what I was doing."',
-    gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMG5mcjhibTRtY2I2djdkbXNzMWxtOG8yNnR3M21yNWZvZWRhMndiMyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/nrXif9YExO9EI/giphy.gif",
+    gifId: "nrXif9YExO9EI",
     alt: "SpongeBob on fire",
   },
   {
@@ -75,7 +81,7 @@ const slides = [
     ],
     quote:
       '"So now I explain things that confused ME… to people who are currently confused. It\'s like therapy, but cheaper."',
-    gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmFiZTZyMjRmZXU5MjFybmFkbDQyazg0dnJhNXIyOTE3bWF3dm13YSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Y1L0dHsQrUpkv8Org7/giphy.gif",
+    gifId: "Y1L0dHsQrUpkv8Org7",
     alt: "Spider-Man pointing",
   },
   {
@@ -88,7 +94,7 @@ const slides = [
     ],
     quote:
       '"Basically we make computers do the boring stuff so humans don\'t have to."',
-    gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExczZlODV1NWl2bWYzdnFxdDFkbG1wcXVhb2JpMmZhaHhzcDJsaDdzbSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/sUUPe6OQwRj56MhPXn/giphy.gif",
+    gifId: "sUUPe6OQwRj56MhPXn",
     alt: "Mario power up",
   },
   {
@@ -98,7 +104,7 @@ const slides = [
       "**From Tech:** Build things that (sometimes) work, Pretend to be confident",
     ],
     quote: '"So now I\'m basically a tech translator for humans."',
-    gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXlia3dtNWU1dW0zazZsM3k3NW95M24waG81cGZuMG9uZzR4ejh4ayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/a5viI92PAF89q/giphy.gif",
+    gifId: "a5viI92PAF89q",
     alt: "cat wearing glasses reading",
   },
   {
@@ -111,7 +117,7 @@ const slides = [
     ],
     quote:
       '"I don\'t have it all figured out… but I\'m definitely not going back to meal plans."',
-    gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjlwc2R3Z2R1ajR5a2xkdWF6d2d5d3Q3YmdlMWF1Y25vZmExYmZxaSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/XAdbHJywVjF5K/giphy.gif",
+    gifId: "XAdbHJywVjF5K",
     alt: "Jake Peralta cool cool cool",
   },
   {
@@ -122,7 +128,7 @@ const slides = [
       "and now, their businesses.",
     ],
     quote: "Also if anyone needs a chatbot or a webapp… you know who to call. 📞",
-    gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHk0NHVrZXhlN3RnbTZ3dGZzanZlejhlZmVraTA5dWljczNyb3NmbiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o7qDSOvfaCO9b3MlO/giphy.gif",
+    gifId: "3o7qDSOvfaCO9b3MlO",
     alt: "Obama mic drop",
   },
 ];
@@ -159,6 +165,7 @@ export default function Home() {
   }, [currentSlide]);
 
   const slide = slides[currentSlide];
+  const gifCandidates = getGifCandidates(slide.gifId);
 
   return (
     <main className="min-h-screen bg-black text-white font-mono overflow-hidden">
@@ -191,9 +198,20 @@ export default function Home() {
 
             <div className="flex justify-center my-4">
               <img
-                src={slide.gif}
+                key={slide.gifId}
+                src={gifCandidates[0]}
                 alt={slide.alt}
                 className="max-w-full h-auto rounded-lg max-h-80 object-contain"
+                data-src-index="0"
+                onError={(e) => {
+                  const img = e.currentTarget;
+                  const currentIndex = Number(img.dataset.srcIndex ?? "0");
+                  const nextIndex = currentIndex + 1;
+                  const nextSrc = gifCandidates[nextIndex];
+                  if (!nextSrc) return;
+                  img.dataset.srcIndex = String(nextIndex);
+                  img.src = nextSrc;
+                }}
               />
             </div>
           </div>
